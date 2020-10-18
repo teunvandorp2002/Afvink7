@@ -10,10 +10,6 @@ abstract class Sequence {
         this.seq = sequence;
     }
 
-    public Sequence() {
-
-    }
-
     public void setSeq(String sequence) {
         this.seq = sequence;
     }
