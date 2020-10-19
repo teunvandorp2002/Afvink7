@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class SequenceVisualiser extends JFrame implements ActionListener {
     private JButton browseButton, openButton, visualise;
@@ -72,13 +73,42 @@ public class SequenceVisualiser extends JFrame implements ActionListener {
         }
     }
 
+    private void isDNA() {
+        DNA dna = new DNA(textArea.getText());
+        System.out.println(dna.getGcPerc());
+        System.out.println(dna.getSeq());
+        System.out.println(Arrays.toString(dna.getColor()));
+    }
+    private void isRNA() {
+        RNA rna = new RNA(textArea.getText());
+        System.out.println(rna.getSeq());
+        System.out.println(Arrays.toString(rna.getColor()));
+    }
+    private void isProtein() {
+        Protein protein = new Protein(textArea.getText());
+        System.out.println(protein.getSeq());
+        System.out.println(Arrays.toString(protein.getColor()));
+    }
+
+
     public void actionPerformed(ActionEvent event) {
         File selectedFile;
         int reply;
         if (event.getSource() == visualise) {
-            DNA dna = new DNA("ATCG");
-            System.out.println(dna.getGcPerc());
-            System.out.println(dna.getSeq());
+            if (textArea.getText().matches("^[ATCG]*$")){
+                isDNA();
+            } else if (textArea.getText().matches("^[AUCG]*$")){
+                isRNA();
+            } else if (textArea.getText().matches("^[ARNDCQGEHILKMFPSTWYV]*$")){
+                isProtein();
+            } else {
+                System.out.println("NO!");
+                try {
+                    throw new NoValidSequence();
+                } catch (NoValidSequence noValidSequence) {
+                    JOptionPane.showMessageDialog(this, noValidSequence.toString(), "Error", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
         }
         if (event.getSource() == browseButton) {
             fileChooser = new JFileChooser();
@@ -92,5 +122,11 @@ public class SequenceVisualiser extends JFrame implements ActionListener {
         if (event.getSource() == openButton) {
             readFile();
         }
+    }
+}
+
+class NoValidSequence extends Exception {
+    public NoValidSequence() {
+        super("Input isn't a DNA, RNA or poly peptide sequence");
     }
 }
