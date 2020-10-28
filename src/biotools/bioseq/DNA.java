@@ -5,10 +5,10 @@ import java.awt.*;
 public class DNA extends Sequence {
     public DNA(String sequence) {
         super(sequence);
-        this.setColor();
+        //this.setColor();
     }
 
-    private void setColor() {
+    public void setColor() {
         Color[] col = new Color[this.seq.length()];
         for (int i = 0; i < this.seq.length(); i++) {
             String letter = Character.toString(this.seq.charAt(i));

@@ -5,10 +5,10 @@ import java.awt.*;
 public class RNA extends Sequence {
     public RNA(String sequence) {
         super(sequence);
-        this.setColor();
+        //this.setColor();
     }
 
-    private void setColor() {
+    public void setColor() {
         Color[] col = new Color[this.seq.length()];
         for (int i = 0; i < this.seq.length(); i++) {
             String letter = Character.toString(this.seq.charAt(i));

@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class SequenceVisualiser extends JFrame implements ActionListener {
-    private JButton browseButton, openButton, visualise;
+    private JButton browseButton, openButton, visualise, clear;
     private JFileChooser fileChooser;
     private JTextField nameField;
     public JTextArea textArea;
@@ -45,6 +45,10 @@ public class SequenceVisualiser extends JFrame implements ActionListener {
         visualise = new JButton("Visualise");
         window.add(visualise);
         visualise.addActionListener(this);
+
+        clear = new JButton("Clear");
+        window.add(clear);
+        clear.addActionListener(this);
 
         nameField = new JTextField();
         nameField.setPreferredSize(new Dimension(600, 20));
@@ -101,14 +105,21 @@ public class SequenceVisualiser extends JFrame implements ActionListener {
         float length;
         if (dna != null) {
             length = (float) dna.getLength();
+            dna.setColor();
             colorArray = dna.getColor();
+            System.out.println(Arrays.toString(dna.getColor()));
         } else if (rna != null) {
             length = (float) rna.getLength();
+            rna.setColor();
             colorArray = rna.getColor();
+            System.out.println(Arrays.toString(rna.getColor()));
         } else {
             length = (float) protein.getLength();
+            protein.setColor();
             colorArray = protein.getColor();
+            System.out.println(Arrays.toString(protein.getColor()));
         }
+        System.out.println(Arrays.toString(colorArray));
         int position = 0;
         for (int i = 0; i < length; i++) {
             int width = Math.round((i + 1) / length * 600);
@@ -149,6 +160,11 @@ public class SequenceVisualiser extends JFrame implements ActionListener {
         }
         if (event.getSource() == openButton) {
             readFile();
+        }
+        if (event.getSource() == clear) {
+            Graphics g = panel.getGraphics();
+            g.clearRect(0, 0, 600, 20);
+            textArea.setText("");
         }
     }
 }
