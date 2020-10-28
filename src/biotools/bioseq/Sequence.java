@@ -4,18 +4,26 @@ import java.awt.*;
 
 abstract class Sequence {
     public String seq;
-    public Colors[] color;
+    public Color[] color;
 
     public Sequence(String sequence) {
         this.seq = sequence;
     }
 
-    enum Colors {
+    /*public enum Colors {
         RED,
         BLUE,
         GREY,
-        YELLOW
-    }
+        YELLOW;
+        RED("255, 0, 0"),
+        BLUE("0, 0, 255"),
+        GREY("136, 136, 136"),
+        YELLOW("255, 255, 0");
+
+        Colors(final String string) {
+
+        }
+    }*/
 
     public void setSeq(String sequence) {
         this.seq = sequence;
@@ -29,7 +37,7 @@ abstract class Sequence {
         return this.seq.length();
     }
 
-    public Colors[] getColor() {
+    public Color[] getColor() {
         return this.color;
     }
 }

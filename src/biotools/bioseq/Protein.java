@@ -1,5 +1,7 @@
 package biotools.bioseq;
 
+import java.awt.*;
+
 public class Protein extends Sequence {
     public Protein(String sequence) {
         super(sequence);
@@ -9,15 +11,15 @@ public class Protein extends Sequence {
     private void setColor(){
         String polar = "QNHSTYC";
         String apolar = "AVLIPFWM";
-        Colors[] col = new Colors[this.seq.length()];
+        Color[] col = new Color[this.seq.length()];
         for (int i = 0; i < this.seq.length(); i++) {
             String letter = Character.toString(this.seq.charAt(i));
             if (polar.contains(letter)) {
-                col[i] = Colors.BLUE;
+                col[i] = Color.BLUE;
             } else if (apolar.contains(letter)) {
-                col[i] = Colors.RED;
+                col[i] = Color.RED;
             } else {
-                col[i] = Colors.GREY;
+                col[i] = Color.GRAY;
             }
         }
         this.color = col;

@@ -17,10 +17,14 @@ public class SequenceVisualiser extends JFrame implements ActionListener {
     private JFileChooser fileChooser;
     private JTextField nameField;
     public JTextArea textArea;
+    public JPanel panel;
     private BufferedReader inFile;
+    private DNA dna;
+    private RNA rna;
+    private Protein protein;
 
     public SequenceVisualiser() {
-        this.setSize(600, 500);
+        this.setSize(600, 550);
         this.createGUI();
         this.setVisible(true);
     }
@@ -51,12 +55,15 @@ public class SequenceVisualiser extends JFrame implements ActionListener {
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setPreferredSize(new Dimension(600, 400));
-
         window.add(textArea);
+
+        panel = new JPanel();
+        panel.setPreferredSize(new Dimension(600, 20));
+
+        window.add(panel);
     }
 
     public void readFile() {
-
         try {
             inFile = new BufferedReader(new FileReader(nameField.getText()));
             textArea.setText("");
@@ -74,20 +81,41 @@ public class SequenceVisualiser extends JFrame implements ActionListener {
     }
 
     private void isDNA() {
-        DNA dna = new DNA(textArea.getText());
-        System.out.println(dna.getGcPerc());
-        System.out.println(dna.getSeq());
-        System.out.println(Arrays.toString(dna.getColor()));
+        dna = new DNA(textArea.getText());
+        visualiser();
     }
     private void isRNA() {
-        RNA rna = new RNA(textArea.getText());
-        System.out.println(rna.getSeq());
-        System.out.println(Arrays.toString(rna.getColor()));
+        rna = new RNA(textArea.getText());
+        visualiser();
     }
     private void isProtein() {
-        Protein protein = new Protein(textArea.getText());
-        System.out.println(protein.getSeq());
-        System.out.println(Arrays.toString(protein.getColor()));
+        protein = new Protein(textArea.getText());
+        visualiser();
+    }
+
+
+    public void visualiser() {
+        Graphics graphics = panel.getGraphics();
+        graphics.clearRect(0, 0, 600, 20);
+        Color[] colorArray;
+        float length;
+        if (dna != null) {
+            length = (float) dna.getLength();
+            colorArray = dna.getColor();
+        } else if (rna != null) {
+            length = (float) rna.getLength();
+            colorArray = rna.getColor();
+        } else {
+            length = (float) protein.getLength();
+            colorArray = protein.getColor();
+        }
+        int position = 0;
+        for (int i = 0; i < length; i++) {
+            int width = Math.round((i + 1) / length * 600);
+            graphics.setColor(colorArray[i]);
+            graphics.fillRect(position, 0, width, 20);
+            position += width;
+        }
     }
 
 

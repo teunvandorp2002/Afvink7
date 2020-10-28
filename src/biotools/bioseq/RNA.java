@@ -1,5 +1,7 @@
 package biotools.bioseq;
 
+import java.awt.*;
+
 public class RNA extends Sequence {
     public RNA(String sequence) {
         super(sequence);
@@ -7,15 +9,15 @@ public class RNA extends Sequence {
     }
 
     private void setColor() {
-        Colors[] col = new Colors[this.seq.length()];
+        Color[] col = new Color[this.seq.length()];
         for (int i = 0; i < this.seq.length(); i++) {
             String letter = Character.toString(this.seq.charAt(i));
             if (letter.equals("C") || letter.equals("G")) {
-                col[i] = Colors.RED;
+                col[i] = Color.RED;
             } else if (letter.equals("A")) {
-                col[i] = Colors.YELLOW;
+                col[i] = Color.YELLOW;
             } else {
-                col[i] = Colors.BLUE;
+                col[i] = Color.BLUE;
             }
         }
         this.color = col;
