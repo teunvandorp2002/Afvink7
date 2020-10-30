@@ -5,7 +5,6 @@ import java.awt.*;
 public class RNA extends Sequence {
     public RNA(String sequence) {
         super(sequence);
-        //this.setColor();
     }
 
     public void setColor() {

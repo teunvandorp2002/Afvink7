@@ -5,7 +5,6 @@ import java.awt.*;
 public class DNA extends Sequence {
     public DNA(String sequence) {
         super(sequence);
-        //this.setColor();
     }
 
     public void setColor() {

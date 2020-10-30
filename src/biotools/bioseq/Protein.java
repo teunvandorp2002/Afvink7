@@ -5,10 +5,9 @@ import java.awt.*;
 public class Protein extends Sequence {
     public Protein(String sequence) {
         super(sequence);
-        //this.setColor();
     }
 
-    public void setColor(){
+    public void setColor() {
         String polar = "QNHSTYC";
         String apolar = "AVLIPFWM";
         Color[] col = new Color[this.seq.length()];
